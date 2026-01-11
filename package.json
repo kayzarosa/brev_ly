@@ -1,0 +1,8 @@
+{
+  "name": "root",
+  "scripts": {
+    "dev:back": "pnpm --filter server dev",
+    "dev:front": "pnpm --filter web dev",
+    "install:all": "pnpm install -r"
+  }
+}
