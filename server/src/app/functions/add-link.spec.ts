@@ -2,7 +2,6 @@ import { randomUUID } from "node:crypto";
 import { describe, it, expect, beforeAll } from "vitest";
 import { addLink } from "./add-link";
 import { isRight, isLeft } from "@/shared/either";
-import { ZodError } from "zod";
 
 describe("addLink", () => {
   let linkShortenedNew: string

@@ -22,9 +22,9 @@ O projeto foi construído utilizando as seguintes tecnologias:
 
 Abaixo estão os requisitos do desafio. O progresso da implementação pode ser acompanhado pelos checkboxes:
 
-- [ ] **Criar Links:** Deve ser possível criar um link encurtado.
-- [ ] **Validação:** Não deve ser possível criar um link com URL mal formatada.
-- [ ] **Unicidade:** Não deve ser possível criar um link com URL encurtada já existente.
+- [✔️] **Criar Links:** Deve ser possível criar um link encurtado.
+- [✔️] **Validação:** Não deve ser possível criar um link com URL mal formatada.
+- [✔️] **Unicidade:** Não deve ser possível criar um link com URL encurtada já existente.
 - [ ] **Deleção:** Deve ser possível deletar um link.
 - [ ] **Redirecionamento:** Obter a URL original por meio de uma URL encurtada.
 - [ ] **Listagem:** Listar todas as URLs cadastradas de forma performática.
