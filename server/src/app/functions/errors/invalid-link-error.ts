@@ -1,5 +1,6 @@
 export class InvalidLinkError extends Error {
-  constructor() {
-    super('Shortened link already registered.')
+  constructor(message: string) {
+    super(message)
+    this.name = "InvalidLinkError"
   }
 }

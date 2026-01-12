@@ -19,7 +19,13 @@ type AddLinkSchemaType = z.input<typeof addLinkSchema>;
 export async function addLink(
   input: AddLinkSchemaType
 ): Promise<Either<InvalidLinkError, { id: string }>> {
-  const { linkOriginal, linkShortened } = addLinkSchema.parse(input);
+  const resultInput = addLinkSchema.safeParse(input);
+
+  if (!resultInput.success) {
+    return makeLeft(new InvalidLinkError(resultInput.error.message));
+  }
+
+  const { linkOriginal, linkShortened } = resultInput.data;
 
   const isExistLinkShortened = await db
     .select({})
@@ -28,7 +34,7 @@ export async function addLink(
     .limit(1);
 
   if (isExistLinkShortened.length > 0) {
-    return makeLeft(new InvalidLinkError());
+    return makeLeft(new InvalidLinkError('Shortened link already registered.'));
   }
 
   const insertLink = await db

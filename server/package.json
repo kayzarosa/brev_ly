@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "tsx watch --env-file .env src/infra/http/server.ts",
     "test": "dotenv -e .env.test -- vitest run",
+    "test:cov": "dotenv -e .env.test -- vitest run --coverage",
     "db:studio": "drizzle-kit studio",
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",
@@ -28,6 +29,7 @@
     "@biomejs/biome": "^2.3.11",
     "@faker-js/faker": "^10.2.0",
     "@types/node": "^25.0.6",
+    "@vitest/coverage-v8": "^4.0.16",
     "dotenv-cli": "^11.0.0",
     "drizzle-kit": "^0.31.8",
     "tsup": "^8.5.1",
