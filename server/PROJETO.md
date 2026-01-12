@@ -27,7 +27,7 @@ Abaixo estão os requisitos do desafio. O progresso da implementação pode ser 
 - [✔️] **Unicidade:** Não deve ser possível criar um link com URL encurtada já existente.
 - [✔️] **Deleção:** Deve ser possível deletar um link.
 - [✔️] **Redirecionamento:** Obter a URL original por meio de uma URL encurtada.
-- [ ] **Listagem:** Listar todas as URLs cadastradas de forma performática.
+- [✔️] **Listagem:** Listar todas as URLs cadastradas de forma performática.
 - [ ] **Métricas:** Incrementar a quantidade de acessos de um link ao ser utilizado.
 - [ ] **Exportação CSV:** Gerar e exportar links criados em um arquivo CSV.
 - [ ] **CDN/Storage:** Acessar o CSV por meio de uma CDN (S3/R2).
