@@ -28,7 +28,7 @@ export async function addLink(
   const { linkOriginal, linkShortened } = resultInput.data;
 
   const isExistLinkShortened = await db
-    .select({})
+    .select()
     .from(schemas.links)
     .where(eq(schemas.links.linkShortened, linkShortened))
     .limit(1);
