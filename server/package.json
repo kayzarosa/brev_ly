@@ -9,6 +9,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch --env-file .env src/infra/http/server.ts",
+    "test": "dotenv -e .env.test -- vitest run",
     "db:studio": "drizzle-kit studio",
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",
@@ -16,7 +17,8 @@
     "db:deploy": "pnpm db:generate && pnpm db:migrate",
     "db:migrate:test": "dotenv -e .env.test -- drizzle-kit migrate",
     "build": "tsup-node",
-    "build:esm": "tsup-node --format esm"
+    "build:esm": "tsup-node --format esm",
+    "pretest": "pnpm run db:migrate:test"
   },
   "keywords": [],
   "author": "",
