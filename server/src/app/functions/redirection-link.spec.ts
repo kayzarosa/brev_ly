@@ -20,7 +20,7 @@ describe("redirectionLink", () => {
     const result = await redirectionLink({
       linkShortened: linkShortenedNew,
     })
-    console.log(result)
+
     expect(isRight(result)).toBe(true);
     if (isRight(result)) {
       expect(result.right).toHaveProperty("linkOriginal", "https://example.com")
