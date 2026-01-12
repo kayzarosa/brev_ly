@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { describe, it, expect } from "vitest";
 import { addLink } from "./add-link";
-import { isRight } from "@/shared/either";
+import { isRight } from "@/infra/shared/either";
 import { incrementQuantity } from "./increment-quantity";
 import { uuidv7 } from "uuidv7";
 

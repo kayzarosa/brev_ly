@@ -1,4 +1,4 @@
-import { Either, makeRight } from "@/shared/either";
+import { Either, makeRight } from "@/infra/shared/either";
 import { db } from "@/infra/db";
 import { schemas } from "@/infra/db/schemas";
 import { desc, count } from "drizzle-orm";

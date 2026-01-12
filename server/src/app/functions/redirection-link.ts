@@ -1,4 +1,4 @@
-import { Either, makeLeft, makeRight } from "@/shared/either";
+import { Either, makeLeft, makeRight } from "@/infra/shared/either";
 import { z } from "zod";
 import { db } from "@/infra/db";
 import { schemas } from "@/infra/db/schemas";

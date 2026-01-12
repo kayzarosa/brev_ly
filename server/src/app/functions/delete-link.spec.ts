@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { describe, it, expect, beforeAll } from "vitest";
 import { addLink } from "./add-link";
-import { isRight, isLeft } from "@/shared/either";
+import { isRight, isLeft } from "@/infra/shared/either";
 import { deleteLink } from "./delete-link";
 
 describe('deleteLink', () => {
