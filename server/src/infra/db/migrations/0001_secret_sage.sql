@@ -1,0 +1,1 @@
+ALTER TABLE "links" ALTER COLUMN "number_of_accesses" SET DATA TYPE integer;
