@@ -32,4 +32,5 @@ export async function getLinks(): Promise<Either<never, GetLinksType>> {
   ])
 
   return makeRight({ links, total })
+  
 }

@@ -1,0 +1,46 @@
+name: Tests App
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, reopened, labeled, unlabeled, synchronize]
+
+jobs:
+  run-ci:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm/action-setup
+        with:
+          version: 10.28.0
+          run_install: false
+      
+      - name: Install Node.jobs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: "pnpm"
+      
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run pretest
+      - run: pnpm run test
