@@ -15,6 +15,8 @@ import { redirectionLinksRoute } from './routes/redirection-link'
 import { getLinksRoute } from './routes/get-links'
 import { incrementQuantityRoute } from './routes/increment-quantity'
 import { deleteLinkRoute } from './routes/delete-link'
+import { env } from '@/env'
+
 
 const server = fastify()
 
@@ -62,6 +64,6 @@ server.register(getLinksRoute)
 server.register(incrementQuantityRoute)
 server.register(deleteLinkRoute)
 
-server.listen({ port: 3333, host: '0.0.0.0' }).then(() => {
-  console.log('HTTP Server running on http://localhost:3333')
+server.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
+  console.log(`HTTP Server running on http://localhost:${env.PORT}`)
 })

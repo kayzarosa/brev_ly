@@ -1,35 +1,35 @@
-# FROM node:22.19 AS base
+FROM node:24 AS base
 
-# RUN npm i -g pnpm
+RUN npm i -g pnpm
 
-# FROM base AS dependencies
+FROM base AS dependencies
 
-# WORKDIR /usr/src/app
+WORKDIR /usr/src/app
 
-# COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml ./
 
-# RUN pnpm install
+RUN pnpm install
 
-# FROM base AS build
+FROM base AS build
 
-# WORKDIR /usr/src/app
+WORKDIR /usr/src/app
 
-# COPY . .
-# COPY --from=dependencies /usr/src/app/node_modules ./node_modules
+COPY . .
+COPY --from=dependencies /usr/src/app/node_modules ./node_modules
 
-# RUN pnpm build:esm
-# RUN pnpm prune --prod
+RUN pnpm build:esm
+RUN pnpm prune --prod
 
-# FROM cgr.dev/chainguard/node:latest AS deploy
+FROM node:24.12-alpine AS deploy
 
-# USER 1000
+USER 1000
 
-# WORKDIR /usr/src/app
+WORKDIR /usr/src/app
 
-# COPY --from=build /usr/src/app/dist ./dist
-# COPY --from=build /usr/src/app/node_modules ./node_modules
-# COPY --from=build /usr/src/app/package.json ./package.json
+COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /usr/src/app/node_modules ./node_modules
+COPY --from=build /usr/src/app/package.json ./package.json
 
-# EXPOSE 3333
+EXPOSE 3333
 
-# CMD [ "dist/infra/http/server.mjs" ]
+CMD ["node", "dist/infra/http/server.mjs" ]
