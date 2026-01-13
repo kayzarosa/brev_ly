@@ -17,6 +17,7 @@ import { incrementQuantityRoute } from './routes/increment-quantity'
 import { deleteLinkRoute } from './routes/delete-link'
 import { env } from '@/env'
 
+
 const server = fastify()
 
 server.setValidatorCompiler(validatorCompiler)
