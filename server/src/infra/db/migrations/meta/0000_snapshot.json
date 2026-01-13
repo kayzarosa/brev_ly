@@ -48,9 +48,7 @@
         "links_link_shortened_unique": {
           "name": "links_link_shortened_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "link_shortened"
-          ]
+          "columns": ["link_shortened"]
         }
       },
       "policies": {},

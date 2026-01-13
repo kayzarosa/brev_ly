@@ -20,5 +20,5 @@ export async function makeLink(
     })
     .returning()
 
-    return result[0]
+  return result[0]
 }

@@ -1,11 +1,11 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest'
-import { exportUploads } from './export-uploads.js'
-import { isRight, unwrapEither } from '@/infra/shared/either'
-import * as upload from '@/infra/storage/upload-to-storage'
 import { randomUUID } from 'node:crypto'
-import { makeLink } from '@/test/factories/make-link.js'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db } from '@/infra/db'
 import { schemas } from '@/infra/db/schemas'
+import { isRight, unwrapEither } from '@/infra/shared/either'
+import * as upload from '@/infra/storage/upload-to-storage'
+import { makeLink } from '@/test/factories/make-link.js'
+import { exportUploads } from './export-uploads.js'
 
 describe('exportUploads', () => {
   beforeEach(async () => {
@@ -29,7 +29,7 @@ describe('exportUploads', () => {
     const link5 = await makeLink()
 
     const result = await exportUploads()
-    
+
     const generateCSVStream = uploadStub.mock.calls[0][0].contentStream
     const csvAsString = await new Promise<string>((resolve, reject) => {
       const chunks: Buffer[] = []
@@ -57,21 +57,26 @@ describe('exportUploads', () => {
       reportUrl: 'http://example.com/file.csv',
     })
 
-    const links = [link1, link2, link3, link4, link5].sort((a, b) => 
+    const links = [link1, link2, link3, link4, link5].sort((a, b) =>
       a.linkOriginal.localeCompare(b.linkOriginal)
     )
 
     // Faça o mesmo com o conteúdo do CSV (pulando o cabeçalho)
     const csvBody = csvArray.slice(1).sort((a, b) => a[0].localeCompare(b[0]))
-    
-    expect(csvArray[0]).toEqual(['Link Original', 'Link encurtado', 'Número de acessos', 'Criado em'])
+
+    expect(csvArray[0]).toEqual([
+      'Link Original',
+      'Link encurtado',
+      'Número de acessos',
+      'Criado em',
+    ])
 
     expect(csvBody).toEqual(
       links.map(link => [
         link.linkOriginal,
         link.linkShortened,
         link.numberOfAccesses.toString(),
-        expect.any(String)
+        expect.any(String),
       ])
     )
   })

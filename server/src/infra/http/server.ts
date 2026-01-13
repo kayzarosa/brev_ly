@@ -1,14 +1,17 @@
 import { fastifyCors } from '@fastify/cors'
-import { fastify } from 'fastify'
 import { fastifySwagger } from '@fastify/swagger'
 import { fastifySwaggerUi } from '@fastify/swagger-ui'
+import { fastify } from 'fastify'
 import {
   hasZodFastifySchemaValidationErrors,
+  jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod'
-import { healthCheckRoute } from './routes/health-check'
+import { addLinkRoute } from './routes/add-link'
 import { exportUploadsRoute } from './routes/export-uploads'
+import { healthCheckRoute } from './routes/health-check'
+import { redirectionLinksRoute } from './routes/redirection-link'
 
 const server = fastify()
 
@@ -39,7 +42,9 @@ server.register(fastifySwagger, {
       title: 'Brav-ly API',
       version: '1.0.0',
     },
-  }
+  },
+
+  transform: jsonSchemaTransform,
 })
 
 server.register(fastifySwaggerUi, {
@@ -48,6 +53,8 @@ server.register(fastifySwaggerUi, {
 
 server.register(healthCheckRoute)
 server.register(exportUploadsRoute)
+server.register(redirectionLinksRoute)
+server.register(addLinkRoute)
 
 server.listen({ port: 3333, host: '0.0.0.0' }).then(() => {
   console.log('HTTP Server running on http://localhost:3333')

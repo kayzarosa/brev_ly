@@ -48,13 +48,3 @@ export const unwrapEither: UnwrapEither = <T, U>({
 export const makeLeft = <T>(value: T): Left<T> => ({ left: value })
 
 export const makeRight = <U>(value: U): Right<U> => ({ right: value })
-
-export const fromNullable = <T, U>(
-  value: T | null | undefined,
-  rightFactory: () => U
-): Either<T, U> => {
-  if (value === null || value === undefined) {
-    return makeRight(rightFactory())
-  }
-  return makeLeft(value)
-} 

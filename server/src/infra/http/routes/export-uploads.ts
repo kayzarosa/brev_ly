@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { exportUploads } from '@/app/functions/export-uploads'
 import { unwrapEither } from '@/infra/shared/either'
 
-export const exportUploadsRoute: FastifyPluginAsyncZod = async (server) => {
+export const exportUploadsRoute: FastifyPluginAsyncZod = async server => {
   server.get(
     '/export/report',
     {
@@ -14,7 +14,7 @@ export const exportUploadsRoute: FastifyPluginAsyncZod = async (server) => {
           200: z.object({
             reportUrl: z.string(),
           }),
-        }
+        },
       },
     },
     async (_, reply) => {
