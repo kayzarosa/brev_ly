@@ -6,6 +6,13 @@ import { schemas } from '@/infra/db/schemas'
 import { type Either, makeRight } from '@/infra/shared/either'
 import { uploadToStorage } from '@/infra/storage/upload-to-storage'
 
+type OutputVariablesFromDatabase = {
+  link_original: string
+  link_shortened: string
+  number_of_accesses: number
+  created_at: Date
+}
+
 type ExportUploadsOutput = {
   reportUrl: string
 }
@@ -44,9 +51,13 @@ export async function exportUploads(): Promise<
     cursor,
     new Transform({
       objectMode: true,
-      transform(chunks: unknown[], _, callback) {
+      transform(chunks: OutputVariablesFromDatabase[], _, callback) {
         for (const chunk of chunks) {
-          this.push(chunk)
+          const formatted = {
+            ...chunk,
+            created_at: new Intl.DateTimeFormat('pt-BR').format(new Date(chunk.created_at))
+          }
+          this.push(formatted)
         }
 
         callback()
