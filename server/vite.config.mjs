@@ -12,7 +12,8 @@ export default defineConfig({
         'node_modules/**',
         'dist/**',
         '**/*.d.ts',
-        'src/shared/**', // ignora arquivos compartilhados
+        'src/infra/shared/**',
+        'src/infra/storage',
         'viti.config.mjs' // ignora o próprio arquivo de config
       ],
     },
