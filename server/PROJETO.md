@@ -29,9 +29,9 @@ Abaixo estão os requisitos do desafio. O progresso da implementação pode ser 
 - [✔️] **Redirecionamento:** Obter a URL original por meio de uma URL encurtada.
 - [✔️] **Listagem:** Listar todas as URLs cadastradas de forma performática.
 - [✔️] **Métricas:** Incrementar a quantidade de acessos de um link ao ser utilizado.
-- [ ] **Exportação CSV:** Gerar e exportar links criados em um arquivo CSV.
-- [ ] **CDN/Storage:** Acessar o CSV por meio de uma CDN (S3/R2).
-- [ ] **Storage Segura:** O arquivo CSV deve ter um nome aleatório e único.
-- [ ] **Estrutura CSV:** O arquivo deve conter: URL original, encurtada, contagem de acessos e data de criação.
+- [✔️] **Exportação CSV:** Gerar e exportar links criados em um arquivo CSV.
+- [✔️] **CDN/Storage:** Acessar o CSV por meio de uma CDN (S3/R2).
+- [✔️] **Storage Segura:** O arquivo CSV deve ter um nome aleatório e único.
+- [✔️] **Estrutura CSV:** O arquivo deve conter: URL original, encurtada, contagem de acessos e data de criação.
 
 ---
