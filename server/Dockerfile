@@ -1,4 +1,4 @@
-FROM node:24 AS base
+FROM node:24.13-alpine AS base
 
 RUN npm i -g pnpm
 
@@ -20,7 +20,7 @@ COPY --from=dependencies /usr/src/app/node_modules ./node_modules
 RUN pnpm build:esm
 RUN pnpm prune --prod
 
-FROM node:24.12-alpine AS deploy
+FROM node:24.13-alpine AS deploy
 
 USER 1000
 
