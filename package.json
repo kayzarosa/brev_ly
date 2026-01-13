@@ -6,7 +6,6 @@
     "install:all": "pnpm install -r",
     "db:up": "pnpm --filter server db:deploy",
     "db:studio": "pnpm --filter server db:studio",
-    "test": "pnpm --filter server test",
-    "pretest": "pnpm run db:migrate:test"
+    "test:back": "pnpm --filter server test" 
   }
 }
