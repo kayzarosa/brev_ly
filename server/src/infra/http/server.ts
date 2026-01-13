@@ -13,6 +13,8 @@ import { exportUploadsRoute } from './routes/export-uploads'
 import { healthCheckRoute } from './routes/health-check'
 import { redirectionLinksRoute } from './routes/redirection-link'
 import { getLinksRoute } from './routes/get-links'
+import { incrementQuantityRoute } from './routes/increment-quantity'
+import { deleteLinkRoute } from './routes/delete-link'
 
 const server = fastify()
 
@@ -57,6 +59,8 @@ server.register(exportUploadsRoute)
 server.register(redirectionLinksRoute)
 server.register(addLinkRoute)
 server.register(getLinksRoute)
+server.register(incrementQuantityRoute)
+server.register(deleteLinkRoute)
 
 server.listen({ port: 3333, host: '0.0.0.0' }).then(() => {
   console.log('HTTP Server running on http://localhost:3333')

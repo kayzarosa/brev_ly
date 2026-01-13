@@ -5,7 +5,7 @@ import { isRight, unwrapEither } from '@/infra/shared/either'
 
 export const redirectionLinksRoute: FastifyPluginAsyncZod = async server => {
   server.get(
-    '/redirection/link',
+    '/link/redirection',
     {
       schema: {
         summary: 'Redirect Link',

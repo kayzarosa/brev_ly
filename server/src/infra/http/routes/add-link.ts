@@ -5,7 +5,7 @@ import { isRight, unwrapEither } from '@/infra/shared/either'
 
 export const addLinkRoute: FastifyPluginAsyncZod = async server => {
   server.post(
-    '/add/link',
+    '/link/add',
     {
       schema: {
         summary: 'Add new link',
@@ -20,7 +20,7 @@ export const addLinkRoute: FastifyPluginAsyncZod = async server => {
         }),
         response: {
           201: z.object({
-            idLink: z.string(),
+            id: z.string(),
           }),
           422: z.object({
             message: z.string(),
@@ -31,14 +31,12 @@ export const addLinkRoute: FastifyPluginAsyncZod = async server => {
     async (request, reply) => {
       const { linkOriginal, linkShortened } = request.body
 
-      console.log(linkOriginal, linkShortened)
-
       const result = await addLink({ linkOriginal, linkShortened })
 
       if (isRight(result)) {
         const { id } = unwrapEither(result)
 
-        return reply.status(201).send({ idLink: id })
+        return reply.status(201).send({ id })
       }
 
       const error = unwrapEither(result)

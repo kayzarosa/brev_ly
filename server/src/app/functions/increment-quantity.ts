@@ -6,7 +6,7 @@ import { type Either, makeLeft, makeRight } from '@/infra/shared/either'
 import { IncrementQuantityError } from './errors/increment-quantity-error'
 
 const incrementQuantitySchema = z.object({
-  linkId: z.string().uuidv7(),
+  linkId: z.string().min(3),
 })
 
 type IncrementQuantitySchemaType = z.input<typeof incrementQuantitySchema>
@@ -19,7 +19,7 @@ export async function incrementQuantity(
   const parsedParams = incrementQuantitySchema.safeParse(params)
 
   if (!parsedParams.success) {
-    return makeLeft(parsedParams.error)
+    return makeLeft(new IncrementQuantityError(parsedParams.error.message))
   }
 
   const { linkId } = parsedParams.data
@@ -27,7 +27,7 @@ export async function incrementQuantity(
   const existLink = await db.query.links.findFirst({
     where: eq(schemas.links.id, linkId),
   })
-
+  
   if (!existLink) {
     return makeLeft(new IncrementQuantityError('Link not found'))
   }

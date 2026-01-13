@@ -39,8 +39,8 @@ describe('deleteLink', () => {
     }
   })
 
-  it('should fail when given an invalid UUID', async () => {
-    const deleteResult = await deleteLink({ id: 'invalid-uuid' })
+  it('should fail when given invalid id', async () => {
+    const deleteResult = await deleteLink({ id: '@@' })
 
     expect(isLeft(deleteResult)).toBe(true)
     if (isLeft(deleteResult)) {

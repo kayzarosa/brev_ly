@@ -6,7 +6,7 @@ import { type Either, makeLeft, makeRight } from '@/infra/shared/either'
 import { DeleteLinkError } from './errors/delete-link-error'
 
 const deleteLinkSchema = z.object({
-  id: z.string().uuidv7(),
+  id: z.string().min(3),
 })
 
 type DeleteLinkSchema = z.input<typeof deleteLinkSchema>
@@ -19,8 +19,16 @@ export async function deleteLink(
   if (!resultInput.success) {
     return makeLeft(new DeleteLinkError(resultInput.error.message))
   }
+  
+    const { id } = resultInput.data
 
-  const { id } = resultInput.data
+  const linkExists = await db.query.links.findFirst({
+    where: eq(schemas.links.id, id)
+  })
+
+  if (!linkExists) {
+    return makeLeft(new DeleteLinkError("Link not found!"))
+  }
 
   const linkToDelete = await db
     .delete(schemas.links)

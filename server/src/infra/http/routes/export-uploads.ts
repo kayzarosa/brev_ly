@@ -5,11 +5,11 @@ import { unwrapEither } from '@/infra/shared/either'
 
 export const exportUploadsRoute: FastifyPluginAsyncZod = async server => {
   server.get(
-    '/export/report',
+    '/link/report',
     {
       schema: {
         summary: 'Exporta um relatório de links em CSV',
-        tags: ['exports'],
+        tags: ['reports'],
         response: {
           200: z.object({
             reportUrl: z.string(),

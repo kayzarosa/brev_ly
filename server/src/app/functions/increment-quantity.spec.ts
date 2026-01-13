@@ -33,7 +33,7 @@ describe('incrementQuantity', () => {
   })
 
   it('should return a validation error for invalid UUID', async () => {
-    const incrementResult = await incrementQuantity({ linkId: 'invalid-uuid' })
+    const incrementResult = await incrementQuantity({ linkId: '@@' })
 
     expect(isRight(incrementResult)).toBe(false)
   })

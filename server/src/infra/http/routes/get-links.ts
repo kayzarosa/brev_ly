@@ -5,7 +5,7 @@ import { unwrapEither } from '@/infra/shared/either'
 
 export const getLinksRoute: FastifyPluginAsyncZod = async server => {
   server.get(
-    '/links',
+    '/link',
     {
       schema: {
         summary: 'Get links',
