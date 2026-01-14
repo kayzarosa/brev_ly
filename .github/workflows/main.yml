@@ -57,8 +57,8 @@ jobs:
       - name: Generate tag version
         id: generate_tag-version
         run: |
-          SHA=$(echo $GITHUB_SHA | head -c7)
-          echo "sha=$SHA" >> $$GITHUB_SHA
+          SHA=$(echo ${{ github.sha }} | cut -c1-7)
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
 
       - name: Build and export image
         id: build-and-export-image
@@ -69,7 +69,7 @@ jobs:
           load: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          tags: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:test
+          tags: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:${{ steps.generate_tag-version.outputs.sha }}
 
       - name: Run Trivy scanner
         uses: aquasecurity/trivy-action@0.33.1
