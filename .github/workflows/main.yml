@@ -74,7 +74,7 @@ jobs:
       - name: Run Trivy scanner
         uses: aquasecurity/trivy-action@0.33.1
         with:
-          image-ref: '${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:test'
+          image-ref: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:${{ steps.generate_tag-version.outputs.sha }}
           format: 'table'
           ignore-unfixed: true
           vuln-type: 'os,library'
