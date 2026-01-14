@@ -83,7 +83,8 @@ jobs:
         id: build-push-image
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./server
+          file: ./server/Dockerfile
           push: true
           cache-from: type=gha
           tags: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:${{ steps.generate_tag-version.outputs.sha }}
