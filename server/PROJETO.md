@@ -8,7 +8,7 @@ Uma API moderna e performática para encurtamento de links, desenvolvida como pa
 
 O projeto foi construído utilizando as seguintes tecnologias:
 
-* **Runtime:** Node.js 24
+* **Runtime:** Node.js 22
 * **Linguagem:** TypeScript
 * **Framework API:** Fastify
 * **Banco de Dados:** Postgres (via Docker)
