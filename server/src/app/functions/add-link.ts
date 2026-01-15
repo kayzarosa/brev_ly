@@ -11,6 +11,7 @@ const addLinkSchema = z.object({
     .string()
     .min(3)
     .max(100)
+    .lowercase()
     .regex(/^[a-zA-Z0-9_-]+$/),
 })
 
