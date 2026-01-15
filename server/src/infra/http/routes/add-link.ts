@@ -1,22 +1,30 @@
-import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
-import { z } from 'zod'
-import { addLink } from '@/app/functions/add-link'
-import { isRight, unwrapEither } from '@/infra/shared/either'
+import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
+import { z } from "zod";
+import { addLink } from "@/app/functions/add-link";
+import { isRight, unwrapEither } from "@/infra/shared/either";
 
-export const addLinkRoute: FastifyPluginAsyncZod = async server => {
+export const addLinkRoute: FastifyPluginAsyncZod = async (server) => {
   server.post(
-    '/link/add',
+    "/link/add",
     {
       schema: {
-        summary: 'Add new link',
-        tags: ['links'],
+        summary: "Add new link",
+        tags: ["links"],
         body: z.object({
-          linkOriginal: z.string().url().min(3),
+          linkOriginal: z
+            .string()
+            .min(3)
+            // Regex que valida o domínio (ex: google.com) sem exigir o protocolo
+            .regex(
+              /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
+              "Insira um endereço de site válido"
+            ),
           linkShortened: z
             .string()
             .min(3)
             .max(100)
-            .regex(/^[a-zA-Z0-9_-]+$/),
+            .lowercase()
+            .regex(/^[a-z0-9-]+$/),
         }),
         response: {
           201: z.object({
@@ -29,21 +37,21 @@ export const addLinkRoute: FastifyPluginAsyncZod = async server => {
       },
     },
     async (request, reply) => {
-      const { linkOriginal, linkShortened } = request.body
+      const { linkOriginal, linkShortened } = request.body;
 
-      const result = await addLink({ linkOriginal, linkShortened })
+      const result = await addLink({ linkOriginal, linkShortened });
 
       if (isRight(result)) {
-        const { id } = unwrapEither(result)
+        const { id } = unwrapEither(result);
 
-        return reply.status(201).send({ id })
+        return reply.status(201).send({ id });
       }
 
-      const error = unwrapEither(result)
+      const error = unwrapEither(result);
       switch (error.constructor.name) {
-        case 'InvalidLinkError':
-          return reply.status(422).send({ message: error.message })
+        case "InvalidLinkError":
+          return reply.status(422).send({ message: error.message });
       }
     }
-  )
-}
+  );
+};
