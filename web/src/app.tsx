@@ -1,9 +1,10 @@
-import { LinkShortener } from "./components/link-shortener";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./http/router/routes";
 
 export function App() {
    return (
     <main className="h-dvh flex flex-col items-center justify-center">
-      <LinkShortener />
+      <RouterProvider router={router} />
     </main>
   )
 }
