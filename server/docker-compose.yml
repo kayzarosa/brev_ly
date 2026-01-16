@@ -17,6 +17,7 @@ services:
       - db
   app:
     build: .
+    network_mode: "host"
     restart: unless-stopped
     depends_on:
       - pg
@@ -30,8 +31,8 @@ services:
       - CLOUDFLARE_SECRET_ACCESS_KEY=$CLOUDFLARE_SECRET_ACCESS_KEY
       - CLOUDFLARE_BUCKET=$CLOUDFLARE_BUCKET
       - CLOUDFLARE_PUBLIC_URL=$CLOUDFLARE_PUBLIC_URL
-    networks:
-      - brevly
+    # networks:
+    #   - brevly
 volumes:
   pg:
 networks:

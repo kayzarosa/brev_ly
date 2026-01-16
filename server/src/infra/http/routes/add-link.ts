@@ -14,7 +14,6 @@ export const addLinkRoute: FastifyPluginAsyncZod = async (server) => {
           linkOriginal: z
             .string()
             .min(3)
-            // Regex que valida o domínio (ex: google.com) sem exigir o protocolo
             .regex(
               /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
               "Insira um endereço de site válido"
