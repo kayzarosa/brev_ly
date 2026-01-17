@@ -29,6 +29,7 @@ export function LinkShortenerForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<IFormInput>({
     resolver: zodResolver(linkSchema),
@@ -37,6 +38,8 @@ export function LinkShortenerForm() {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     console.log(data);
+
+    reset();
   };
 
   return (

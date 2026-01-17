@@ -5,6 +5,7 @@
 }
 
 @import "tailwindcss";
+@import "./css/scroll.css";
 
 @theme {
   --default-font-family: "Open Sans", sans-serif;
@@ -19,4 +20,5 @@
   --color-danger: #B12C4D;
   --text-xs: 10px;
   --text-md: 14px;
+
 }
