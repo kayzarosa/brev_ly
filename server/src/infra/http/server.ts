@@ -38,6 +38,7 @@ server.setErrorHandler((error, _, reply) => {
 
 server.register(fastifyCors, {
   origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
 })
 
 server.register(fastifySwagger, {
