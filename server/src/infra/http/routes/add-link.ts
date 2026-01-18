@@ -20,7 +20,7 @@ export const addLinkRoute: FastifyPluginAsyncZod = async (server) => {
             ),
           linkShortened: z
             .string()
-            .min(3)
+            .min(1)
             .max(100)
             .lowercase()
             .regex(/^[a-z0-9-]+$/),
