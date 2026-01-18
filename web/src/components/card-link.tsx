@@ -1,15 +1,21 @@
 import { Copy, Trash2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
+import type { GetLink } from "@/http/link-server";
 
-export type Link = {
-  id: string;
-  linkOriginal: string;
-  linkShortened: string;
-  numberOfAccesses: number;
+type CardLinkProps = GetLink & {
+  copyLink: (link: string) => void;
+  deleteLink: (id: string) => void;
 };
 
-export function CardLink({ id, linkOriginal, linkShortened, numberOfAccesses }: Link) {
+export function CardLink({
+  id,
+  linkOriginal,
+  linkShortened,
+  numberOfAccesses,
+  copyLink,
+  deleteLink,
+}: CardLinkProps) {
   return (
     <div
       key={id}
@@ -31,11 +37,21 @@ export function CardLink({ id, linkOriginal, linkShortened, numberOfAccesses }: 
           {numberOfAccesses} acessos
         </p>
         <div className="flex flex-row gap-1">
-          <Button variant="secondary" size="icon-sm">
+          <Button
+            variant="secondary"
+            size="icon-sm"
+            onClick={() =>
+              copyLink(`${import.meta.env.VITE_FRONTEND_URL}/${linkShortened}`)
+            }
+          >
             <Copy size={16} />
           </Button>
 
-          <Button variant="secondary" size="icon-sm">
+          <Button
+            variant="secondary"
+            size="icon-sm"
+            onClick={() => deleteLink(id)}
+          >
             <Trash2 size={16} />
           </Button>
         </div>

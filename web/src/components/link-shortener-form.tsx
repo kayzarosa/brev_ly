@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useAddLink } from "@/store/links";
 
 type IFormInput = {
   link: string;
@@ -16,11 +17,11 @@ const linkSchema = z.object({
     .min(3, "O link original é obrigatório")
     .regex(
       /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
-      "Insira um endereço de site válido"
+      "Insira um endereço de site válido",
     ),
   linkShortener: z
     .string()
-    .min(3, "O link curto é obrigatório")
+    .min(1, "O link curto é obrigatório")
     .max(100, "O link curto deve ter menos que 100 caracteres")
     .regex(/^[a-z0-9-]+$/, "Use apenas letras minusculas, números e hífens"),
 });
@@ -34,12 +35,22 @@ export function LinkShortenerForm() {
   } = useForm<IFormInput>({
     resolver: zodResolver(linkSchema),
   });
+  const { mutate: addLink, isPending: isPendingAddLink } = useAddLink();
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    console.log(data);
-
-    reset();
+    addLink(
+      {
+        linkOriginal: data.link,
+        linkShortened: data.linkShortener,
+      },
+      {
+        onSuccess: () => {
+          reset();
+        },
+      },
+    );
   };
 
   return (
@@ -69,8 +80,12 @@ export function LinkShortenerForm() {
           textSpan="brev.ly/"
         />
 
-        <Button disabled={isSubmitting} className="mt-4" variant="primary">
-          {isSubmitting ? "Salvando..." : "Salvar link"}
+        <Button
+          disabled={isPendingAddLink || isSubmitting}
+          className="mt-4"
+          variant="primary"
+        >
+          {isPendingAddLink || isSubmitting ? "Salvando..." : "Salvar link"}
         </Button>
       </form>
     </div>

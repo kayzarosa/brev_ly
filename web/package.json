@@ -12,6 +12,8 @@
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-slot": "^1.2.4",
     "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/react-query": "^5.90.18",
+    "@tanstack/react-query-devtools": "^5.91.2",
     "lucide-react": "^0.562.0",
     "motion": "^12.26.2",
     "react": "^19.2.0",
