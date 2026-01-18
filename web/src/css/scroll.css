@@ -1,20 +1,20 @@
 @layer scrollbar {
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 10px;
-    height: 1px;
-  }
+	.custom-scrollbar::-webkit-scrollbar {
+		width: 10px;
+		height: 1px;
+	}
 
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
+	.custom-scrollbar::-webkit-scrollbar-track {
+		background: transparent;
+	}
 
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: var(--color-blue-base);
-    border-radius: 3px;
-  }
+	.custom-scrollbar::-webkit-scrollbar-thumb {
+		background: var(--color-blue-base);
+		border-radius: 3px;
+	}
 
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: var(--color-blue-dark);
-    cursor: pointer;
-  }
+	.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+		background: var(--color-blue-dark);
+		cursor: pointer;
+	}
 }
