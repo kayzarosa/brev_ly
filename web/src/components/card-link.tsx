@@ -5,7 +5,7 @@ import type { GetLink } from "@/http/link-server";
 
 type CardLinkProps = GetLink & {
 	copyLink: (link: string) => void;
-	deleteLink: (id: string) => void;
+	deleteLink: (id: string, link: string) => void;
 };
 
 export function CardLink({
@@ -50,7 +50,10 @@ export function CardLink({
 					<Button
 						variant="secondary"
 						size="icon-sm"
-						onClick={() => deleteLink(id)}
+						onClick={(e) => {
+							e.currentTarget.blur();
+							deleteLink(id, linkShortened)
+						}}
 					>
 						<Trash2 size={16} />
 					</Button>

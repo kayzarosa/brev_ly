@@ -5,6 +5,8 @@ import { Input } from "./ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useAddLink } from "@/store/links";
+import { useState } from "react";
+import { NotificationToast } from "./ui/notification-toast";
 
 type IFormInput = {
 	link: string;
@@ -35,6 +37,11 @@ export function LinkShortenerForm() {
 	} = useForm<IFormInput>({
 		resolver: zodResolver(linkSchema),
 	});
+
+	const [open, setOpen] = useState(false);
+	const [variantToast, setVariantToast] = useState<"success" | "error">("success");
+	const [toastDescription, setToastDescription] = useState("");
+
 	const { mutate: addLink, isPending: isPendingAddLink } = useAddLink();
 
 	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
@@ -48,6 +55,14 @@ export function LinkShortenerForm() {
 			{
 				onSuccess: () => {
 					reset();
+					setVariantToast("success");
+					setToastDescription("Link adicionado com sucesso");
+					setOpen(true);
+				},
+				onError: (error) => {
+					setVariantToast("error");
+					setToastDescription(error?.message || "Erro ao adicionar o link");
+					setOpen(true);
 				},
 			},
 		);
@@ -88,6 +103,13 @@ export function LinkShortenerForm() {
 					{isPendingAddLink || isSubmitting ? "Salvando..." : "Salvar link"}
 				</Button>
 			</form>
+
+			<NotificationToast
+				open={open}
+				setOpen={setOpen}
+				variantToast={variantToast}
+				description={toastDescription}
+			/>
 		</div>
 	);
 }

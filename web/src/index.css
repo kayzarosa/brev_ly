@@ -19,6 +19,7 @@
   --color-gray-600: #1f2025;
   --color-danger: #b12c4d;
   --text-xs: 10px;
+  --text-xxs: 12px;
   --text-md: 14px;
 
   --background-gradient: linear-gradient(
@@ -26,7 +27,7 @@
     #1b1c5a 20%,
     #091f9e 40%,
     #bc62c3 50%,
-    #f41919 60%,
+    #b12c4d 60%,
     #0daacd 80%
   );
 }

@@ -32,7 +32,7 @@ const labelErrorOrStandard = tv({
 	},
 });
 
-const imputErrorOrStandard = tv({
+const inputErrorOrStandard = tv({
 	base: "flex justify-center items-center h-12 w-full border-2 rounded-lg transition-colors",
 
 	variants: {
@@ -70,7 +70,7 @@ export function Input({
 			>
 				{textLabel}
 			</label>
-			<div className={imputErrorOrStandard({ hasError: !!error })}>
+			<div className={inputErrorOrStandard({ hasError: !!error })}>
 				{!!textSpan && (
 					<span className="ml-4 text-gray-600 leading-4.5 text-md gap-0">
 						{textSpan}

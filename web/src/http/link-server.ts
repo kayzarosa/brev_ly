@@ -25,7 +25,8 @@ export async function addLink(data: AddLink): Promise<{ id: string }> {
 	});
 
 	if (!response.ok) {
-		throw new Error("Falha ao adicionar o link");
+    const errorData = await response.json().catch(() => ({})); 
+		throw new Error(errorData?.message || 'Falha ao adicionar o link');
 	}
 
 	return response.json();
