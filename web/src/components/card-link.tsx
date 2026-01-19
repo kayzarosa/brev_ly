@@ -28,12 +28,12 @@ export function CardLink({
 				>
 					brev.ly/{linkShortened}
 				</Link>
-				<p className="text-gray-500 text-[12px] truncate w-full leading-4.5">
+				<p className="text-gray-500 text-xxs truncate w-full leading-4.5">
 					{linkOriginal}
 				</p>
 			</div>
 			<div className="w-[50%] h-full flex flex-row justify-end items-center gap-5">
-				<p className="text-gray-500 text-[12px] text-y-center text-right">
+				<p className="text-gray-500 text-xxs text-y-center text-right">
 					{numberOfAccesses} acessos
 				</p>
 				<div className="flex flex-row gap-1">
