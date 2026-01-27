@@ -11,7 +11,7 @@ import {
 import { addLinkRoute } from './routes/add-link'
 import { exportUploadsRoute } from './routes/export-uploads'
 import { healthCheckRoute } from './routes/health-check'
-import { redirectionLinksRoute } from './routes/redirection-link'
+import { validateLinksRoute } from './routes/validate-link'
 import { getLinksRoute } from './routes/get-links'
 import { incrementQuantityRoute } from './routes/increment-quantity'
 import { deleteLinkRoute } from './routes/delete-link'
@@ -58,7 +58,7 @@ server.register(fastifySwaggerUi, {
 
 server.register(healthCheckRoute)
 server.register(exportUploadsRoute)
-server.register(redirectionLinksRoute)
+server.register(validateLinksRoute)
 server.register(addLinkRoute)
 server.register(getLinksRoute)
 server.register(incrementQuantityRoute)

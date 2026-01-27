@@ -1,11 +1,11 @@
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
-import { z } from 'zod'
-import { redirectionLink } from '@/app/functions/redirection-link'
+import { boolean, z } from 'zod'
+import { validateLink } from '@/app/functions/validate-link'
 import { isRight, unwrapEither } from '@/infra/shared/either'
 
-export const redirectionLinksRoute: FastifyPluginAsyncZod = async server => {
+export const validateLinksRoute: FastifyPluginAsyncZod = async server => {
   server.get(
-    '/link/redirection',
+    '/link/validate',
     {
       schema: {
         summary: 'Redirect Link',
@@ -19,9 +19,7 @@ export const redirectionLinksRoute: FastifyPluginAsyncZod = async server => {
         }),
         response: {
           200: z.object({
-            id: z.string(),
-            linkOriginal: z.string(),
-            linkShortened: z.string(),
+            valid: z.boolean()
           }),
           401: z.object({
             message: z.string(),
@@ -32,15 +30,13 @@ export const redirectionLinksRoute: FastifyPluginAsyncZod = async server => {
     async (request, reply) => {
       const { shortened } = request.query
 
-      const result = await redirectionLink({ linkShortened: shortened })
+      const result = await validateLink({ linkShortened: shortened })
 
       if (isRight(result)) {
-        const { id, linkShortened, linkOriginal } = unwrapEither(result)
+        const { valid } = unwrapEither(result)
 
         return reply.status(200).send({
-          id: id,
-          linkOriginal: linkOriginal,
-          linkShortened: linkShortened,
+          valid
         })
       }
 
