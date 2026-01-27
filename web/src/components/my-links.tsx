@@ -3,9 +3,14 @@ import { Button } from "./ui/button";
 import { UnregisteredLinks } from "./unregistered-links";
 import { Loading } from "./loading";
 import { CardLink } from "./card-link";
-import { useDeleteLink, useGetListLinks, useReportLink } from "@/store/links";
+import {
+  queryClient,
+  useDeleteLink,
+  useGetListLinks,
+  useReportLink,
+} from "@/store/links-query";
 import { ModalDialogConfirm } from "./ui/modal-dialog-confirm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NotificationToast } from "./ui/notification-toast";
 
 export function MyLinks() {
@@ -58,6 +63,18 @@ export function MyLinks() {
     await downloadReport();
   };
 
+  useEffect(() => {
+    const channel = new BroadcastChannel("list-links");
+
+    channel.onmessage = (event) => {
+      if (event.data === "refresh_list") {
+        queryClient.invalidateQueries({ queryKey: ["list-links"] });
+      }
+    };
+
+    return () => channel.close();
+  }, []);
+
   return (
     <>
       <div className="flex flex-col p-6 md:p-8">
@@ -109,11 +126,11 @@ export function MyLinks() {
             </div>
           )}
 
-					<footer>
-						<p className="text-gray-600 text-md text-right mr-6 font-semibold">
-								Total de links: {myLinksRegistered?.total}
-						</p>
-					</footer>
+        <footer>
+          <p className="text-gray-600 text-md text-right mr-6 font-semibold">
+            Total de links: {myLinksRegistered?.total}
+          </p>
+        </footer>
       </div>
 
       <ModalDialogConfirm

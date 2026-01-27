@@ -1,4 +1,4 @@
-import { useGetListLinks } from "@/store/links";
+import { useGetListLinks } from "@/store/links-query";
 import { LinkShortenerForm } from "./link-shortener-form";
 import { MyLinks } from "./my-links";
 import { motion, AnimatePresence } from "motion/react";

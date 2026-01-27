@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useAddLink } from "@/store/links";
+import { useAddLink } from "@/store/links-query";
 import { useState } from "react";
 import { NotificationToast } from "./ui/notification-toast";
 

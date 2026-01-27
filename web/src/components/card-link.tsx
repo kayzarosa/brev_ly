@@ -1,7 +1,7 @@
 import { Copy, Trash2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-import type { GetLink } from "@/http/link-server";
+import type { GetLink } from "@/types/link-types";
 
 type CardLinkProps = GetLink & {
 	copyLink: (link: string) => void;
@@ -23,6 +23,7 @@ export function CardLink({
 		>
 			<div className="w-[50%] flex flex-col gap-1">
 				<Link
+					target="_blank"
 					to={`/${linkShortened}`}
 					className="text-blue-base cursor-pointer"
 				>
