@@ -4,16 +4,16 @@ import { NotFound } from "@/pages/not-found";
 import { Redirecting } from "@/pages/redirecting";
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/:urlShortened",
-    element: <Redirecting />,
-  },
-  {
-    path: "*",
-    element: <NotFound />,
-  },
+	{
+		path: "/",
+		element: <Home />,
+	},
+	{
+		path: "/:urlShortened",
+		element: <Redirecting />,
+	},
+	{
+		path: "*",
+		element: <NotFound />,
+	},
 ]);

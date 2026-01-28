@@ -1,6 +1,6 @@
+import * as Toast from "@radix-ui/react-toast";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router/routes";
-import * as Toast from "@radix-ui/react-toast";
 
 export function App() {
 	return (

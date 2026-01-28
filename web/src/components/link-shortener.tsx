@@ -1,7 +1,7 @@
+import { AnimatePresence, motion } from "motion/react";
 import { useGetListLinks } from "@/store/links-query";
 import { LinkShortenerForm } from "./link-shortener-form";
 import { MyLinks } from "./my-links";
-import { motion, AnimatePresence } from "motion/react";
 
 export function LinkShortener() {
 	const { isFetching: isLoading } = useGetListLinks();

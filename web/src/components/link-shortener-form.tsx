@@ -1,11 +1,11 @@
-import { useForm } from "react-hook-form";
-import type { SubmitHandler } from "react-hook-form";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import type { SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useAddLink } from "@/store/links-query";
-import { useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 import { NotificationToast } from "./ui/notification-toast";
 
 type IFormInput = {
@@ -39,7 +39,9 @@ export function LinkShortenerForm() {
 	});
 
 	const [open, setOpen] = useState(false);
-	const [variantToast, setVariantToast] = useState<"success" | "error">("success");
+	const [variantToast, setVariantToast] = useState<"success" | "error">(
+		"success",
+	);
 	const [toastDescription, setToastDescription] = useState("");
 
 	const { mutate: addLink, isPending: isPendingAddLink } = useAddLink();

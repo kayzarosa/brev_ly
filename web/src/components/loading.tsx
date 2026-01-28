@@ -1,5 +1,5 @@
-import { motion } from "motion/react";
 import { LoaderPinwheel } from "lucide-react";
+import { motion } from "motion/react";
 
 type LoadingProps = {
 	text: string;

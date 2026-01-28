@@ -1,7 +1,7 @@
 import { Copy, Trash2 } from "lucide-react";
-import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import type { GetLink } from "@/types/link-types";
+import { Button } from "./ui/button";
 
 type CardLinkProps = GetLink & {
 	copyLink: (link: string) => void;
@@ -53,7 +53,7 @@ export function CardLink({
 						size="icon-sm"
 						onClick={(e) => {
 							e.currentTarget.blur();
-							deleteLink(id, linkShortened)
+							deleteLink(id, linkShortened);
 						}}
 					>
 						<Trash2 size={16} />

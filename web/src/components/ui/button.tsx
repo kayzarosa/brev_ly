@@ -1,6 +1,6 @@
+import { Slot } from "@radix-ui/react-slot";
 import type { ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
-import { Slot } from "@radix-ui/react-slot";
 
 const buttonVariants = tv({
 	base: "font-semibold cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none aria-disabled:opacity-50 aria-disabled:pointer-events-none",

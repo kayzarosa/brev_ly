@@ -1,67 +1,67 @@
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import {
-  addLink,
-  deleteLink,
-  getIncrementNumberOfAccesses,
-  getLinkReport,
-  getLinks,
+	addLink,
+	deleteLink,
+	getIncrementNumberOfAccesses,
+	getLinkReport,
+	getLinks,
 	getLinkValidate,
 } from "@/http/link-server";
-import { downloadUrl } from "@/utils/download-url";
 import type { AddLink } from "@/types/link-types";
+import { downloadUrl } from "@/utils/download-url";
 
 export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      refetchOnWindowFocus: false,
-    },
-  },
+	defaultOptions: {
+		queries: {
+			staleTime: 1000 * 60 * 5, // 5 minutes
+			refetchOnWindowFocus: false,
+		},
+	},
 });
 
 export function useAddLink() {
-  return useMutation({
-    mutationFn: ({ linkOriginal, linkShortened }: AddLink) =>
-      addLink({ linkOriginal, linkShortened }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["list-links"] });
-    },
-  });
+	return useMutation({
+		mutationFn: ({ linkOriginal, linkShortened }: AddLink) =>
+			addLink({ linkOriginal, linkShortened }),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["list-links"] });
+		},
+	});
 }
 
 export function useGetListLinks() {
-  return useQuery({
-    queryKey: ["list-links"],
-    queryFn: async () => getLinks(),
-  });
+	return useQuery({
+		queryKey: ["list-links"],
+		queryFn: async () => getLinks(),
+	});
 }
 
 export function useDeleteLink() {
-  return useMutation({
-    mutationFn: (id: string) => deleteLink(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["list-links"] });
-    },
-  });
+	return useMutation({
+		mutationFn: (id: string) => deleteLink(id),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["list-links"] });
+		},
+	});
 }
 
 export function useReportLink() {
-  return useMutation({
-    mutationFn: () => getLinkReport(),
-    onSuccess(data) {
-      downloadUrl(data.reportUrl);
-    },
-  });
+	return useMutation({
+		mutationFn: () => getLinkReport(),
+		onSuccess(data) {
+			downloadUrl(data.reportUrl);
+		},
+	});
 }
 
 export function useValidateLink() {
 	return useMutation({
-		mutationFn: (shortenedUrl: string) => getLinkValidate(shortenedUrl)
-	})
+		mutationFn: (shortenedUrl: string) => getLinkValidate(shortenedUrl),
+	});
 }
 
 export function useIncrementAccesses() {
-  return useMutation({
-    mutationFn: (idLink: string) => getIncrementNumberOfAccesses(idLink),
-  });
+	return useMutation({
+		mutationFn: (idLink: string) => getIncrementNumberOfAccesses(idLink),
+	});
 }
