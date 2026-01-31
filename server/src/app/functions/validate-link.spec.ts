@@ -3,6 +3,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { isLeft, isRight } from '@/infra/shared/either'
 import { addLink } from './add-link'
 import { validateLink } from './validate-link'
+import { id } from 'zod/locales'
 
 describe('redirectionLink', () => {
   let linkShortenedNew: string
@@ -23,7 +24,10 @@ describe('redirectionLink', () => {
 
     expect(isRight(result)).toBe(true)
     if (isRight(result)) {
-      expect(result.right).toHaveProperty('valid', true)
+      expect(result.right.id).toEqual(expect.any(String))
+      expect(result.right.linkOriginal).toBe('https://example.com')
+      expect(result.right.linkShortened).toBe(linkShortenedNew)
+      expect(result.right.numberOfAccesses).toBe(0)
     }
   })
 

@@ -15,9 +15,16 @@ const validateLinkSchema = z.object({
 
 type ValidateLinkSchemaType = z.input<typeof validateLinkSchema>;
 
+type LinkValidate = {
+  id: string;
+  linkOriginal: string;
+  linkShortened: string;
+  numberOfAccesses: number;
+};
+
 export async function validateLink(
   input: ValidateLinkSchemaType,
-): Promise<Either<ValidateLinkError, { valid: boolean }>> {
+): Promise<Either<ValidateLinkError, LinkValidate>> {
   const resultInput = validateLinkSchema.safeParse(input);
 
   if (!resultInput.success) {
@@ -34,5 +41,10 @@ export async function validateLink(
     return makeLeft(new ValidateLinkError("Link not found"));
   }
 
-  return makeRight({ valid: !!link });
+  return makeRight({
+    id: link.id,
+    linkOriginal: link.linkOriginal,
+    linkShortened: link.linkShortened,
+    numberOfAccesses: link.numberOfAccesses,
+  });
 }

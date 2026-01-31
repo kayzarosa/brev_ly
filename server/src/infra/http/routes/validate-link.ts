@@ -1,15 +1,15 @@
-import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
-import { boolean, z } from 'zod'
-import { validateLink } from '@/app/functions/validate-link'
-import { isRight, unwrapEither } from '@/infra/shared/either'
+import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
+import { boolean, z } from "zod";
+import { validateLink } from "@/app/functions/validate-link";
+import { isRight, unwrapEither } from "@/infra/shared/either";
 
-export const validateLinksRoute: FastifyPluginAsyncZod = async server => {
+export const validateLinksRoute: FastifyPluginAsyncZod = async (server) => {
   server.get(
-    '/link/validate',
+    "/link/validate",
     {
       schema: {
-        summary: 'Redirect Link',
-        tags: ['links'],
+        summary: "Redirect Link",
+        tags: ["links"],
         querystring: z.object({
           shortened: z
             .string()
@@ -19,7 +19,10 @@ export const validateLinksRoute: FastifyPluginAsyncZod = async server => {
         }),
         response: {
           200: z.object({
-            valid: z.boolean()
+            id: z.string(),
+            linkOriginal: z.string(),
+            linkShortened: z.string(),
+            numberOfAccesses: z.number(),
           }),
           401: z.object({
             message: z.string(),
@@ -28,23 +31,27 @@ export const validateLinksRoute: FastifyPluginAsyncZod = async server => {
       },
     },
     async (request, reply) => {
-      const { shortened } = request.query
+      const { shortened } = request.query;
 
-      const result = await validateLink({ linkShortened: shortened })
+      const result = await validateLink({ linkShortened: shortened });
 
       if (isRight(result)) {
-        const { valid } = unwrapEither(result)
+        const { id, linkOriginal, linkShortened, numberOfAccesses } =
+          unwrapEither(result);
 
         return reply.status(200).send({
-          valid
-        })
+          id,
+          linkOriginal,
+          linkShortened,
+          numberOfAccesses,
+        });
       }
 
-      const error = unwrapEither(result)
+      const error = unwrapEither(result);
       switch (error.constructor.name) {
-        case 'ValidateLinkError':
-          return reply.status(401).send({ message: error.message })
+        case "ValidateLinkError":
+          return reply.status(401).send({ message: error.message });
       }
-    }
-  )
-}
+    },
+  );
+};
