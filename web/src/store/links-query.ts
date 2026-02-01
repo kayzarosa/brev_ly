@@ -2,10 +2,8 @@ import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import {
 	addLink,
 	deleteLink,
-	getIncrementNumberOfAccesses,
 	getLinkReport,
 	getLinks,
-	getLinkValidate,
 } from "@/http/link-server";
 import type { AddLink } from "@/types/link-types";
 import { downloadUrl } from "@/utils/download-url";
@@ -54,14 +52,3 @@ export function useReportLink() {
 	});
 }
 
-export function useValidateLink() {
-	return useMutation({
-		mutationFn: (shortenedUrl: string) => getLinkValidate(shortenedUrl),
-	});
-}
-
-export function useIncrementAccesses() {
-	return useMutation({
-		mutationFn: (idLink: string) => getIncrementNumberOfAccesses(idLink),
-	});
-}

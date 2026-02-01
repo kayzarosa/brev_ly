@@ -33,7 +33,8 @@ export function LinkShortenerForm() {
 		register,
 		handleSubmit,
 		reset,
-		formState: { errors, isSubmitting },
+		setError,
+		formState: { errors, isSubmitting, },
 	} = useForm<IFormInput>({
 		resolver: zodResolver(linkSchema),
 	});
@@ -63,6 +64,10 @@ export function LinkShortenerForm() {
 				},
 				onError: (error) => {
 					setVariantToast("error");
+					setError("linkShortener", {
+						type: "manual",
+						message: "Link curto já cadastrado."
+					})
 					setToastDescription(error?.message || "Erro ao adicionar o link");
 					setOpen(true);
 				},

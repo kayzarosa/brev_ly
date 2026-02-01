@@ -4,7 +4,7 @@ import type { ComponentPropsWithoutRef } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 const toastRootVariants = tv({
-	base: "rounded-2xl shadow-lg border-2 p-4 relative overflow-hidden",
+	base: "rounded-2xl shadow-lg border-2 p-4 relative overflow-hidden mt-14 md:mt-3 wrap-break-word leading-relaxed max-w-60",
 	variants: {
 		variantToast: {
 			success: "border-green-500 bg-emerald-500/10",
